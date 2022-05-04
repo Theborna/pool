@@ -1,0 +1,234 @@
+/**
+ * Name     : JavaFX FlatRed style
+ * Publisher: Apress
+ * Author   : Gerrit Grunwald
+ *
+ */
+.root {
+    -dark: #27292D;
+    -standard: #913B3B;
+    -bright: #DF5B5B;
+    -text-color: #FFFEFE;
+    -highlight-effect: dropshadow(two-pass-box, rgba(255, 255, 255, 1.0), 20, 0.5, 0, 0);
+    -fx-background: #34383B;
+    -fx-base: -standard;
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 16px;
+    -fx-font-weight: lighter;
+    -fx-selection-bar: -standard;
+    -fx-selection-bar-non-focused: derive(-standard, 20%);
+}
+
+#enterName1,
+#enterName2,
+#loginButton {
+    -fx-font-size: 24px;
+    -fx-alignment: center;
+}
+
+#name1,
+#name2 {
+    -fx-font-size: 36;
+    -fx-alignment: center;
+    -fx-font-family: "Sans";
+    -fx-text-fill: #00a6ff;
+}
+
+.menu-bar {
+    -fx-background-color: -standard, -bright;
+}
+
+.menu-bar .menu:selected {
+    -fx-background: -bright;
+    -fx-background-color: -standard;
+    -fx-text-fill: -text-color;
+}
+
+.menu-bar .menu-item {
+    -fx-text-fill: -text-color;
+}
+
+.menu:pressed {
+    -fx-background: -standard;
+    -fx-background-color: -standard;
+    -fx-text-fill: -text-color;
+}
+
+.menu:hover>.label {
+    -fx-background-color: -standard;
+}
+
+.menu .menu-button {
+    -fx-background: -standard;
+    -fx-background-color: -standard;
+}
+
+.context-menu {
+    -fx-background-color: -bright;
+}
+
+.titled-pane {
+    -fx-mark-color: -standard;
+    -fx-mark-highlight-color: transparent;
+    -fx-text-fill: -text-color;
+}
+
+.titled-pane:focused>.title>.arrow-button>.arrow {
+    -fx-mark-color: white;
+    -fx-focus-color: transparent;
+}
+
+.titled-pane>.title {
+    -fx-background-color: -standard, -bright;
+    -fx-background-insets: 0, 1 0 0 0;
+}
+
+.titled-pane>.title:hover {
+    -fx-background-color: -standard, derive(-bright, -10%);
+}
+
+.button {
+    -fx-text-fill: -text-color;
+    -fx-outer-border: linear-gradient(to bottom, derive(-standard, 30%) 0%, derive(-standard, -30%) 100%);
+    -fx-inner-border: derive(-bright, 10%);
+    -fx-body-color: -bright;
+    -fx-border-color: transparent;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0, 0, 0, 1 0 0 0;
+    -fx-padding: 10 15 10 15;
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 16px;
+    -fx-font-style: normal;
+    -fx-font-weight: lighter;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.3), 2, 0, -2, 2);
+}
+
+.button:pressed {
+    -fx-body-color: -standard;
+    -fx-inner-border: derive(-standard, 10%);
+}
+
+.button:disabled {
+    -fx-body-color: -dark;
+}
+
+.button .text {
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 1, 0, 0, 1);
+}
+
+.toggle-button {
+    -fx-text-fill: -text-color;
+    -fx-outer-border: linear-gradient(to bottom, derive(-standard, 30%) 0%, derive(-standard, -30%) 100%);
+    -fx-inner-border: derive(-bright, 10%);
+    -fx-body-color: -bright;
+    -fx-border-color: transparent;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0, 0, 0, 1 0 0 0;
+    -fx-padding: 10 15 10 15;
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 16px;
+    -fx-font-style: normal;
+    -fx-font-weight: lighter;
+}
+
+.toggle-button:pressed {
+    -fx-body-color: -standard;
+    -fx-inner-border: derive(-standard, 10%);
+}
+
+.toggle-button:selected {
+    -fx-body-color: -standard;
+    -fx-inner-border: derive(-standard, 10%);
+    -fx-background-color: -fx-focus-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+}
+
+.radio-button .radio {
+    -fx-background-radius: 1em;
+    -fx-background-color: -bright, -fx-background;
+    -fx-background-insets: 0, 2;
+    -fx-pref-width: 21;
+    -fx-pref-height: 21;
+}
+
+.radio-button:selected .radio .dot {
+    -fx-background-color: -bright;
+    -fx-background-insets: 0;
+    -fx-padding: 0.4em;
+}
+
+.check-box>.box {
+    -fx-background-radius: 0;
+    -fx-background-color: -bright, -fx-background;
+    -fx-background-insets: 0, 2;
+    -fx-pref-width: 21;
+    -fx-pref-height: 21;
+}
+
+.check-box:focused>.box {
+    -fx-background-insets: 0, 2;
+}
+
+.check-box>.box>.mark {
+    -fx-mark-highlight-color: -bright;
+    -fx-mark-color: -bright;
+    -fx-scale-shape: false;
+    -fx-shape: "M 4.023 10.8633 L 4.0259 10.9843 L 11.9863 2.9926 L 10.1048 -0.014 L 4.0049 7.9774 L 1.3589 5.9741 L -0.0884 8.0153 L 4.023 10.8633 Z";
+    -fx-pref-width: 12px;
+    -fx-pref-height: 11px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: -bright;
+}
+
+.slider .track {
+    -fx-background-color: -bright;
+    -fx-background-radius: 1em;
+    -fx-padding: 0.8em;
+}
+
+.slider .thumb {
+    -fx-background-color: white;
+    -fx-scale-shape: false;
+    -fx-shape: "M 935 1187 L 943 1187 L 943 1188 L 935 1188 L 935 1187 ZM 935 1185 L 943 1185 L 943 1186 L 935 1186 L 935 1185 ZM 935 1183 L 943 1183 L 943 1184 L 935 1184 L 935 1183 ZM 926 1185.5 C 926 1192.9559 932.0441 1199 939.5 1199 C 946.9559 1199 953 1192.9559 953 1185.5 C 953 1178.0441 946.9559 1172 939.5 1172 C 932.0441 1172 926 1178.0441 926 1185.5 Z";
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.3), 1, 0.0, 0, 1);
+}
+
+.slider .thumb:pressed {
+    -fx-effect: -highlight-effect;
+}
+
+.progress-bar .track {
+    -fx-background-color: -bright;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0.8em;
+}
+
+.progress-bar .bar {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-box-border: -bright;
+    -fx-accent: -standard;
+}
+
+.progress-indicator {
+    -fx-progress-color: -standard;
+}
+
+.progress-indicator>.determinate-indicator>.indicator {
+    -fx-background-color: -bright;
+    -fx-background-insets: 0, 1, 5 2 1 2;
+    -fx-padding: 0;
+}
+
+.progress-indicator .percentage {
+    -fx-fill: rgb(255, 255, 255);
+}
+
+.borders {
+    -fx-border-color: rgba(255, 255, 255, .80);
+    -fx-border-style: dotted;
+    -fx-border-width: 1;
+    -fx-border-insets: -2;
+}
