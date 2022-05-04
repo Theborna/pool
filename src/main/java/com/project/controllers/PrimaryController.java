@@ -9,8 +9,6 @@ import com.project.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
 
 public class PrimaryController {
@@ -30,7 +28,6 @@ public class PrimaryController {
         root = loader.load();
         SecondaryController controller = loader.getController();
         controller.displayName(field1.getText(), field2.getText());
-        GraphicsContext gc = controller.gameCanvas.getGraphicsContext2D();
         setRoot(root);
     }
 

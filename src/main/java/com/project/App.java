@@ -31,17 +31,24 @@ public class App extends Application {
         scene.setRoot(root);
     }
 
+    /**
+     * 
+     * @param fxml
+     * @return loaded fxml from the recourses folder
+     * @throws IOException
+     */
     public static FXMLLoader loadFXML(String fxml) throws IOException {
         return new FXMLLoader(App.class.getResource(fxml + ".fxml"));
     }
 
-    // public static <T> T getController(String fxml, Parent root) throws
-    // IOException {
-    // FXMLLoader loader = loadFXML(fxml);
-    // root = loader.load();
-    // return loader.getController();
-    // }
-
+    /*
+     * public static <T> T getController(String fxml, Parent root) throws
+     * IOException {
+     * FXMLLoader loader = loadFXML(fxml);
+     * root = loader.load();
+     * return loader.getController();
+     * }
+     */
     public static void main(String[] args) {
         launch();
     }

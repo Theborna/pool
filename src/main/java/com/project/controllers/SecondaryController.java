@@ -5,6 +5,7 @@ import static com.project.App.setRoot;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.project.App;
 import com.project.models.Ball;
@@ -19,9 +20,8 @@ public class SecondaryController {
     @FXML
     Canvas gameCanvas = new Canvas();
 
-    // private ArrayList<Ball> balls = new ArrayList<>(
-    // List.of(1, 2, 3, 4, 5, 6, 7, 8, 9).stream().map(Ball::new).toList());// list
-    // of balls
+    private ArrayList<Ball> balls = new ArrayList<>(
+            List.of(1, 2, 3, 4, 5, 6, 7, 8, 9).stream().map(Ball::new).collect(Collectors.toList()));// list of balls
     private Ball myBall;// current ball
 
     @FXML
@@ -32,5 +32,7 @@ public class SecondaryController {
     public void displayName(String name1, String name2) {
         this.name1.setText(" " + name1 + this.name1.getText());
         this.name2.setText(" " + name2 + this.name2.getText());
+        for (Ball ball : balls)
+            ball.draw(gameCanvas.getGraphicsContext2D());
     }
 }
