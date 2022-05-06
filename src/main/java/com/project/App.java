@@ -34,7 +34,7 @@ public class App extends Application {
     /**
      * 
      * @param fxml
-     * @return loaded fxml from the recourses folder
+     * @return loaded fxml from the resources folder
      * @throws IOException
      */
     public static FXMLLoader loadFXML(String fxml) throws IOException {
@@ -52,5 +52,4 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }

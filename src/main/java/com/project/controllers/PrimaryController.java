@@ -27,7 +27,7 @@ public class PrimaryController {
         FXMLLoader loader = App.loadFXML("secondary");
         root = loader.load();
         SecondaryController controller = loader.getController();
-        controller.displayName(field1.getText(), field2.getText());
+        controller.init(field1.getText(), field2.getText());
         setRoot(root);
     }
 
