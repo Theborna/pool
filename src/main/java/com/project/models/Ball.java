@@ -18,18 +18,23 @@ public class Ball {
 
     public Ball(int num) {
         Random random = new Random();
-        x = num * 30;
+        x = num * 70;
         y = random.nextInt(350) + 25;
         vx = random.nextInt(40);
         vy = random.nextInt(40);
-        r = 35;
+        vx = 0;
+        vy = 0;
+        r = 15;
         this.num = num;
         tempCircle = new Circle(x, y, r, Color.hsb(num * 360 / 9, 1, 1));
+        if (num == 9) {
+            tempCircle.setFill(Color.WHITE);
+        }
     }
 
     public void draw(GraphicsContext graphicsContext2D) { // TODO: has to change with respect to using pictures
         graphicsContext2D.setFill(tempCircle.getFill());
-        graphicsContext2D.fillOval(x, y, r, r);
+        graphicsContext2D.fillOval(x, y, 2 * r, 2 * r);
     }
 
     public void move(Canvas canvas, List<Ball> balls) {
@@ -59,7 +64,7 @@ public class Ball {
     private void ballCollision(List<Ball> balls) {
         for (Ball ball : balls) {
             if (!ball.equals(this)) {
-                if (((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r) * (r))) {
+                if (((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r + ball.r) * (r + ball.r))) {
                     double tempVx = vx;
                     double tempVy = vy;
                     vx = ball.vx;
@@ -67,7 +72,7 @@ public class Ball {
                     ball.vx = tempVx;
                     ball.vy = tempVy;
                 }
-                while (((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r) * (r))) {
+                while (((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r + ball.r) * (r + ball.r))) {
                     x += vx;
                     y += vy;
                     ball.x += ball.vx;
@@ -101,5 +106,13 @@ public class Ball {
 
     public int getNum() {
         return num;
+    }
+
+    public int getCenterX() {
+        return x + r;
+    }
+
+    public int getCenterY() {
+        return y + r;
     }
 }

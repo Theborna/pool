@@ -1,10 +1,12 @@
 package com.project;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static double mouseX, mouseY;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -25,10 +28,31 @@ public class App extends Application {
         stage.setTitle("pool");
         stage.setScene(scene);
         stage.show();
+        mouse();
     }
 
     public static void setRoot(Parent root) throws IOException {
         scene.setRoot(root);
+    }
+
+    private void mouse() {
+        scene.setOnMouseMoved(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                mouseX = event.getX();
+                mouseY = event.getY();
+            }
+
+        });
+    }
+
+    public static double getMouseX() {
+        return mouseX;
+    }
+
+    public static double getMouseY() {
+        return mouseY;
     }
 
     /**
