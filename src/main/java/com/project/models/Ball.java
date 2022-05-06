@@ -42,21 +42,24 @@ public class Ball {
     private void wallCollision(Canvas canvas) {
         if (x < 0 || x > canvas.getWidth() - r) {
             vx = -0.9 * vx;
-            while (x < 0 || x > canvas.getWidth() - r)
-                x += vx;
+            if (Math.abs(x) > Math.abs(x - canvas.getWidth() + r))
+                x = (int) (canvas.getWidth() - r - 1);
+            else
+                x = 1;
         }
         if (y < 0 || y > canvas.getHeight() - r) {
             vy = -0.9 * vy;
-            while (y < 0 || y > canvas.getHeight() - r)
-                y += vy;
+            if (Math.abs(y) > Math.abs(y - canvas.getHeight() + r))
+                y = (int) (canvas.getHeight() - r - 1);
+            else
+                y = 1;
         }
     }
 
     private void ballCollision(List<Ball> balls) {
         for (Ball ball : balls) {
             if (!ball.equals(this)) {
-
-                if (((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r + ball.r) * (r + ball.r))) {
+                if (((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r) * (r))) {
                     double tempVx = vx;
                     double tempVy = vy;
                     vx = ball.vx;
@@ -64,7 +67,7 @@ public class Ball {
                     ball.vx = tempVx;
                     ball.vy = tempVy;
                 }
-                while (((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r + ball.r) * (r + ball.r))) {
+                while (((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r) * (r))) {
                     x += vx;
                     y += vy;
                     ball.x += ball.vx;
