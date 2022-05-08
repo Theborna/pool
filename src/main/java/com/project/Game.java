@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 
+import com.project.enums.BallEnum;
 import com.project.models.Ball;
 import com.project.models.Cue;
 
@@ -16,8 +17,8 @@ import javafx.scene.image.ImageView;
 public class Game {
 
     private Canvas canvas;
-    private ArrayList<Ball> balls = new ArrayList<>(
-            List.of(1, 2, 3, 4, 5, 6, 7, 8, 9).stream().map(Ball::new).collect(Collectors.toList()));// list of balls
+    private ArrayList<Ball> balls = new ArrayList<>(/** list of balls */
+            List.of(1, 2, 3, 4, 5, 6, 7, 8, 9).stream().map(BallEnum::new).map(Ball::new).collect(Collectors.toList()));
     private Ball myBall;
     private Cue cue;// current cue
 
@@ -25,7 +26,8 @@ public class Game {
         this.canvas = canvas;
         for (Ball ball : balls)
             ball.draw(this.canvas.getGraphicsContext2D());
-        this.cue = new Cue(cue);
+        myBall = balls.get(8);
+        this.cue = new Cue(cue, myBall);
     }
 
     public Canvas getCanvas() {
@@ -33,7 +35,6 @@ public class Game {
     }
 
     public void run() {
-        myBall = balls.get(8);
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
 
@@ -43,7 +44,7 @@ public class Game {
                 for (Ball ball : balls) {
                     ball.move(canvas, balls);
                     ball.draw(canvas.getGraphicsContext2D());
-                    cue.orient(canvas,myBall);
+                    cue.orient();
                 }
             }
 

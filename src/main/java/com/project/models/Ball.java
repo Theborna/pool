@@ -1,8 +1,9 @@
 package com.project.models;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.project.enums.BallEnum;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,22 +11,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Ball {
-    private int x, y, r;
+    private int x, y, r, num;
     private double vx, vy;
-    private int num;
+    private BallEnum ballEnum;
     private Circle tempCircle;
-    public static ArrayList<List<Integer>> initialPos;
 
-    public Ball(int num) {
+    public Ball(BallEnum ballEnum) {
+        this.ballEnum = ballEnum;
+        num = ballEnum.getNum();
         Random random = new Random();
         x = num * 70;
         y = random.nextInt(350) + 25;
-        vx = random.nextInt(40);
-        vy = random.nextInt(40);
-        vx = 0;
-        vy = 0;
+        if (num == 9) {
+            vx = random.nextInt(40);
+            vy = random.nextInt(40);
+        }
         r = 15;
-        this.num = num;
         tempCircle = new Circle(x, y, r, Color.hsb(num * 360 / 9, 1, 1));
         if (num == 9) {
             tempCircle.setFill(Color.WHITE);
@@ -62,9 +63,9 @@ public class Ball {
     }
 
     private void ballCollision(List<Ball> balls) {
-        for (Ball ball : balls) {
+        for (Ball ball : balls)
             if (!ball.equals(this)) {
-                if (((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r + ball.r) * (r + ball.r))) {
+                if (ball.intersects(this)) {
                     double tempVx = vx;
                     double tempVy = vy;
                     vx = ball.vx;
@@ -72,14 +73,17 @@ public class Ball {
                     ball.vx = tempVx;
                     ball.vy = tempVy;
                 }
-                while (((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r + ball.r) * (r + ball.r))) {
+                while (ball.intersects(this)) {
                     x += vx;
                     y += vy;
                     ball.x += ball.vx;
                     ball.vx += ball.vy;
                 }
             }
-        }
+    }
+
+    private boolean intersects(Ball ball) {
+        return ((x - ball.x) * (x - ball.x) + (y - ball.y) * (y - ball.y)) < ((r + ball.r) * (r + ball.r));
     }
 
     @Override
