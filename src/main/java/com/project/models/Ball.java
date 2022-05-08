@@ -20,22 +20,23 @@ public class Ball {
         this.ballEnum = ballEnum;
         num = ballEnum.getNum();
         Random random = new Random();
-        x = num * 70;
-        y = random.nextInt(350) + 25;
-        if (num == 9) {
+        x = Integer.valueOf(ballEnum.getX0());
+        y = Integer.valueOf(ballEnum.getY0());
+        if (true) {
             vx = random.nextInt(40);
             vy = random.nextInt(40);
         }
-        r = 15;
-        tempCircle = new Circle(x, y, r, Color.hsb(num * 360 / 9, 1, 1));
-        if (num == 9) {
-            tempCircle.setFill(Color.WHITE);
-        }
+        r = ballEnum.getR();
+        tempCircle = ballEnum.getCircle();
     }
 
     public void draw(GraphicsContext graphicsContext2D) { // TODO: has to change with respect to using pictures
-        graphicsContext2D.setFill(tempCircle.getFill());
+        graphicsContext2D.setFill(Color.BLACK);
         graphicsContext2D.fillOval(x, y, 2 * r, 2 * r);
+        graphicsContext2D.setFill(tempCircle.getFill());
+        graphicsContext2D.fillOval(x + 1, y + 1, 2 * r - 2, 2 * r - 2);
+        graphicsContext2D.setFill(Color.WHITE);
+        graphicsContext2D.fillOval(x + r / 2, y + r / 2, r, r);
     }
 
     public void move(Canvas canvas, List<Ball> balls) {

@@ -8,9 +8,10 @@ import java.util.stream.Collectors;
 
 import com.project.enums.BallEnum;
 import com.project.models.Ball;
+import com.project.models.BlackBall;
 import com.project.models.Cue;
+import com.project.models.WhiteBall;
 
-import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
 
@@ -18,16 +19,19 @@ public class Game {
 
     private Canvas canvas;
     private ArrayList<Ball> balls = new ArrayList<>(/** list of balls */
-            List.of(1, 2, 3, 4, 5, 6, 7, 8, 9).stream().map(BallEnum::new).map(Ball::new).collect(Collectors.toList()));
-    private Ball myBall;
+            List.of(1, 2, 3, 4, 5, 6, 7, 9, 10).stream().map(BallEnum::get).map(Ball::new)
+                    .collect(Collectors.toList()));
+    private WhiteBall whiteBall = new WhiteBall(BallEnum.WHITE);
+    private Ball blackBall = new BlackBall(BallEnum.BLACK);
     private Cue cue;// current cue
 
     public Game(Canvas canvas, ImageView cue) {
         this.canvas = canvas;
+        balls.add(blackBall);
+        balls.add(whiteBall);
         for (Ball ball : balls)
             ball.draw(this.canvas.getGraphicsContext2D());
-        myBall = balls.get(8);
-        this.cue = new Cue(cue, myBall);
+        this.cue = new Cue(cue, whiteBall);
     }
 
     public Canvas getCanvas() {
@@ -44,8 +48,8 @@ public class Game {
                 for (Ball ball : balls) {
                     ball.move(canvas, balls);
                     ball.draw(canvas.getGraphicsContext2D());
-                    cue.orient();
                 }
+                cue.orient();
             }
 
         };

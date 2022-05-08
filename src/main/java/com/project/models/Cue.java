@@ -21,7 +21,7 @@ public class Cue {
         if (getMouseY() < 200)
             return;
         view.setLayoutX(getMouseX() - view.getFitWidth() / 2);
-        view.setLayoutY(getMouseY() - view.getFitHeight() / 2);
+        view.setLayoutY(getMouseY() - view.getFitWidth() / 2);
         ballX = myBall.getCenterX() + CANVAS_X;
         ballY = myBall.getCenterY() + CANVAS_Y;
         view.setRotate(-45 - getAngle(ballY, ballX, getMouseY(), getMouseX()));
