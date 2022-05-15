@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 
+import com.project.controllers.SecondaryController;
 import com.project.enums.BallEnum;
 import com.project.models.Ball;
 import com.project.models.BlackBall;
@@ -13,7 +14,6 @@ import com.project.models.Cue;
 import com.project.models.WhiteBall;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.image.ImageView;
 
 public class Game {
 
@@ -24,14 +24,20 @@ public class Game {
     private WhiteBall whiteBall = new WhiteBall(BallEnum.WHITE);
     private Ball blackBall = new BlackBall(BallEnum.BLACK);
     private Cue cue;// current cue
+    private SecondaryController controller;
+    private int turn;
 
-    public Game(Canvas canvas, ImageView cue) {
-        this.canvas = canvas;
+    public Game(SecondaryController controller) {
+        turn = 1;
+        controller.setTurn("hiiiii");
+        this.controller = controller;
+        this.canvas = controller.getGameCanvas();
         balls.add(blackBall);
         balls.add(whiteBall);
         for (Ball ball : balls)
             ball.draw(this.canvas.getGraphicsContext2D());
-        this.cue = new Cue(cue, whiteBall);
+        this.cue = new Cue(controller.getCue(), whiteBall, controller.getStrength());
+
     }
 
     public Canvas getCanvas() {
@@ -39,7 +45,6 @@ public class Game {
     }
 
     public void run() {
-        Timer timer = new Timer();
         TimerTask task = new TimerTask() {
 
             @Override
@@ -50,9 +55,13 @@ public class Game {
                     ball.draw(canvas.getGraphicsContext2D());
                 }
                 cue.orient();
+                cue.checkHit(balls);
+                controller.setTurn(controller.getName(turn));
+                cue.hit();
             }
 
         };
-        timer.schedule(task, 0, 16);
+        App.getGameThread().schedule(task, 0, 16);
     }
+
 }

@@ -1,30 +1,53 @@
 package com.project.models;
 
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 
-import static com.project.App.getMouseX;
-import static com.project.App.getMouseY;
+import java.util.List;
+
+import com.project.App;
 
 public class Cue {
 
     private ImageView view;
+    private boolean getClicks;
     private double ballX, ballY;
-    private Ball myBall;
-    private static final double CANVAS_Y = 175 + 36, CANVAS_X = 25 + 36;
+    private double mouseX, mouseY;
+    private WhiteBall myBall;
+    private Slider strength;
+    private static final double CANVAS_Y = 200 + 22, CANVAS_X = 75 + 28;
+    private static final double MAX_DISTANCE = 300;
+    private double power;
+    private static final double PUSH_SPEED = 25;
 
-    public Cue(ImageView cue, Ball myBall) {
+    public Cue(ImageView cue, WhiteBall myBall, Slider strength) {
         view = cue;
         this.myBall = myBall;
+        this.strength = strength;
     }
 
     public void orient() {
-        if (getMouseY() < 200)
+        if (App.getMouseY() < 150)
             return;
-        view.setLayoutX(getMouseX() - view.getFitWidth() / 2);
-        view.setLayoutY(getMouseY() - view.getFitWidth() / 2);
+        mouseX = App.getMouseX();
+        mouseY = App.getMouseY();
+        view.setLayoutX(mouseX - view.getFitWidth() / 2);
+        view.setLayoutY(mouseY - view.getFitWidth() / 2);
         ballX = myBall.getCenterX() + CANVAS_X;
         ballY = myBall.getCenterY() + CANVAS_Y;
-        view.setRotate(-45 - getAngle(ballY, ballX, getMouseY(), getMouseX()));
+        double distanceRatio = (Math.sqrt(ballDistanceSquared())) / ((double) MAX_DISTANCE);
+        power = (distanceRatio - 0.5) * 2;
+        if (power < 0.0)
+            power = 0;
+        if (power > 1.0)
+            power = 1;
+        view.setRotate(-45 - getAngle(ballY, ballX, mouseY, mouseX));
+        strength.setValue(power * 100);
+        // strength.setValue(50);
+    }
+
+    private double ballDistanceSquared() {
+        return (mouseX - ballX) * (mouseX - ballX) + (mouseY - ballY) * (mouseY - ballY);
     }
 
     private float getAngle(double x1, double y1, double x2, double y2) {
@@ -32,5 +55,19 @@ public class Cue {
         if (angle < 0)
             angle += 360;
         return angle;
+    }
+
+    public boolean checkHit(List<Ball> balls) {
+        getClicks = true;
+        for (Ball ball : balls) {
+            if (!ball.isSteady())
+                getClicks = false;
+        }
+        return getClicks;
+    }
+
+    public void hit() {
+        if (getClicks && App.mouseClicked)
+            myBall.getPushed((180 - getAngle(ballY, ballX, mouseY, mouseX)) * Math.PI / 180, PUSH_SPEED * power);
     }
 }

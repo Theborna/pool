@@ -6,10 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * JavaFX App
@@ -18,6 +21,8 @@ public class App extends Application {
 
     private static Scene scene;
     private static double mouseX, mouseY;
+    public static boolean mouseClicked;
+    private static Timer gameThread;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,6 +33,7 @@ public class App extends Application {
         stage.setTitle("pool");
         stage.setScene(scene);
         stage.show();
+        gameThread = new Timer();
         mouse();
     }
 
@@ -36,15 +42,20 @@ public class App extends Application {
     }
 
     private void mouse() {
-        scene.setOnMouseMoved(new EventHandler<MouseEvent>() {
+        EventHandler<MouseEvent> mouse = new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent event) {
                 mouseX = event.getX();
                 mouseY = event.getY();
+                mouseClicked = false;
+                if (event.getButton().equals(MouseButton.PRIMARY))
+                    mouseClicked = true;
             }
 
-        });
+        };
+        scene.setOnMouseMoved(mouse);
+        scene.setOnMouseClicked(mouse);
     }
 
     public static double getMouseX() {
@@ -53,6 +64,10 @@ public class App extends Application {
 
     public static double getMouseY() {
         return mouseY;
+    }
+
+    public static Timer getGameThread() {
+        return gameThread;
     }
 
     /**
