@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.project.SoundEffect;
 import com.project.enums.BallEnum;
 
 import javafx.scene.canvas.Canvas;
@@ -47,7 +48,7 @@ public class Ball {
         graphicsContext2D.setFill(Color.WHITE);
         graphicsContext2D.fillOval(x + r / 2, y + r / 2, r, r);
         graphicsContext2D.setFill(Color.BLACK);
-        graphicsContext2D.fillText(Integer.valueOf(num).toString(), getCenterX(), getCenterY(), 32);
+        graphicsContext2D.fillText(Integer.valueOf(num).toString(), getCenterX() - 4, getCenterY() + 4, 32);
     }
 
     public void move(Canvas canvas, List<Ball> balls) {
@@ -85,6 +86,7 @@ public class Ball {
                     vy += (ball.y - y) * (dotSpeed / distanceSquared(ball));
                     ball.vx -= (ball.x - x) * (dotSpeed / distanceSquared(ball));
                     ball.vy -= (ball.y - y) * (dotSpeed / distanceSquared(ball));
+                    SoundEffect.HIT.play();
                 }
                 while (ball.intersects(this)) {
                     x += vx;
@@ -127,6 +129,10 @@ public class Ball {
 
     public double getNum() {
         return num;
+    }
+
+    public double getR() {
+        return r;
     }
 
     public double getCenterX() {

@@ -1,7 +1,9 @@
 package com.project.models;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class Cue {
     private double mouseX, mouseY;
     private WhiteBall myBall;
     private Slider strength;
-    private static final double CANVAS_Y = 200 + 22, CANVAS_X = 75 + 28;
+    private static final double CANVAS_Y = 200 + 33, CANVAS_X = 75 + 36;
     private static final double MAX_DISTANCE = 300;
     private double power;
     private static final double PUSH_SPEED = 25;
@@ -43,7 +45,16 @@ public class Cue {
             power = 1;
         view.setRotate(-45 - getAngle(ballY, ballX, mouseY, mouseX));
         strength.setValue(power * 100);
-        // strength.setValue(50);
+    }
+
+    public void showPath(GraphicsContext graphicsContext2D) {
+        double angle = getAngle(ballY, ballX, mouseY, mouseX), spaceBetween = power * myBall.getR();
+        double dx = spaceBetween * Math.sin(angle * Math.PI / 180), dy = spaceBetween * Math.cos(angle * Math.PI / 180);
+        graphicsContext2D.setFill(Color.WHITE);
+        for (int i = 1; i < 8; i++) {
+            graphicsContext2D.fillOval(myBall.getCenterX() - i * dx, myBall.getCenterY() - i * dy, 10 / Math.sqrt(i),
+                    10 / Math.sqrt(i));
+        }
     }
 
     private double ballDistanceSquared() {

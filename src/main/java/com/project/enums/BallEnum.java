@@ -21,8 +21,8 @@ public enum BallEnum {
         r = 15;
         final int midX = 435, midY = 140;
         final double multiplier = 2.5 * r;
-        final double[] xPos = new double[11], yPos = new double[11];
-        for (int i = 1; i < 5; i++) {
+        final double[] xPos = new double[10], yPos = new double[10];
+        for (int i = 0; i < 5; i++) {
             for (int j = 0; j <= i; j++) {
                 xPos[i + j] = (i - 3) * multiplier + midX;
                 yPos[i + j] = (j - 2) * multiplier + midY;

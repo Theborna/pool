@@ -56,7 +56,8 @@ public class Game {
                 }
                 cue.orient();
                 cue.checkHit(balls);
-                controller.setTurn(controller.getName(turn));
+                // controller.setTurn(controller.getName(turn));
+                cue.showPath(canvas.getGraphicsContext2D());
                 cue.hit();
             }
 
