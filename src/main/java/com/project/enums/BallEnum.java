@@ -17,22 +17,27 @@ public enum BallEnum {
 
     BallEnum(int num) {
         this.num = num;
-        Random random = new Random();
         r = 15;
-        final int midX = 435, midY = 140;
+        final double midX = 385, midY = 140 - r;
         final double multiplier = 2.5 * r;
         final double[] xPos = new double[10], yPos = new double[10];
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j <= i; j++) {
-                xPos[i + j] = (i - 3) * multiplier + midX;
-                yPos[i + j] = (j - 2) * multiplier + midY;
+        double j = 0, k = 0, kLast = 0;
+        for (int i = 0; i < 10; i++, k++) {
+            xPos[i] = midX + multiplier * (k) * Math.cos(Math.PI / 6)
+                    + multiplier * (j) * Math.sin(Math.PI / 3) * Math.sin(Math.PI / 6);
+            yPos[i] = midY + multiplier * (j) * Math.sin(Math.PI / 3) * Math.cos(Math.PI / 6)
+                    - multiplier * (k) * Math.sin(Math.PI / 6);
+            if (i == 3 || i == 6 || i == 8) {
+                j++;
+                k = kLast - 0.5;
+                kLast = k + 1;
             }
         }
         if (num > 0) {
             x0 = xPos[num - 1];
             y0 = yPos[num - 1];
         } else {
-            x0 = 100;
+            x0 = 150;
             y0 = midY;
         }
         // x0 = num * 70;
@@ -44,15 +49,15 @@ public enum BallEnum {
     }
 
     public double getR() {
-        return r;
+        return Double.valueOf(r);
     }
 
     public double getX0() {
-        return x0;
+        return Double.valueOf(x0);
     }
 
     public double getY0() {
-        return y0;
+        return Double.valueOf(y0);
     }
 
     public Circle getCircle() {

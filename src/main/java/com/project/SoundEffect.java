@@ -7,7 +7,8 @@ import javax.sound.sampled.*;
 public enum SoundEffect {
    HIT("sounds/hit.wav"), // A Ball being hit
    SINK("sounds/sink.wav"), // A Ball falling in a Pocket
-   QUE("sounds/queue.wav"); // The queue Ball being hit.
+   QUE("sounds/queue.wav"), // The queue Ball being hit.
+   FIRST("sounds/first.wav"); // The first hit
 
    public static enum Volume {
       MUTE, LOW, MEDIUM, HIGH

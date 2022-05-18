@@ -17,13 +17,12 @@ import com.project.models.WhiteBall;
 import javafx.scene.canvas.Canvas;
 
 public class Game {
-
-    private static final HashSet<Ball> allBalls = new HashSet<>(/** list of balls */
-            Stream.of(BallEnum.values()).filter(ball -> ball.getNum() != 0).map(Ball::new)
-                    .collect(Collectors.toList()));
     public static double CANVAS_WIDTH, CANVAS_HEIGHT, CANVAS_x, CANVAS_Y;
     public static TimerTask task;
-    private HashSet<Ball> balls;
+    public static boolean first = true;
+    private HashSet<Ball> balls = new HashSet<>(/** list of balls */
+            Stream.of(BallEnum.values()).filter(ball -> ball.getNum() != 0).map(Ball::new)
+                    .collect(Collectors.toList()));
     private HashSet<Ball> pocketedBalls = new HashSet<>();
     private Canvas canvas;
     private WhiteBall whiteBall = new WhiteBall(BallEnum.WHITE);
@@ -33,8 +32,8 @@ public class Game {
     private Moveable movingObject;
 
     public Game(SecondaryController controller) {
+        first = true;
         turn = 1;
-        balls = new HashSet<Ball>(allBalls);
         balls.add(whiteBall);
         controller.setTurn("hiiiii");
         this.controller = controller;

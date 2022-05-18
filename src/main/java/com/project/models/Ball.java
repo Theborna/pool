@@ -90,7 +90,11 @@ public class Ball {
                     vy += (ball.y - y) * (dotSpeed / distanceSquared(ball));
                     ball.vx -= (ball.x - x) * (dotSpeed / distanceSquared(ball));
                     ball.vy -= (ball.y - y) * (dotSpeed / distanceSquared(ball));
-                    SoundEffect.HIT.play();
+                    if (Game.first)
+                        SoundEffect.FIRST.play();
+                    else
+                        SoundEffect.HIT.play();
+                    Game.first = false;
                 }
                 while (ball.intersects(this)) {
                     x += vx;
