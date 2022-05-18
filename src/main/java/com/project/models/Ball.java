@@ -1,9 +1,11 @@
 package com.project.models;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import com.project.Game;
 import com.project.SoundEffect;
 import com.project.enums.BallEnum;
 
@@ -20,11 +22,12 @@ public class Ball {
     private int num;
     protected double vx;
     protected double vy;
-    private double x;
-    private double y;
-    private double r;
+    protected double x;
+    protected double y;
+    protected double r;
     private BallEnum ballEnum;
     private Circle tempCircle;
+    protected boolean interacts;
 
     public Ball(BallEnum ballEnum) {
         this.ballEnum = ballEnum;
@@ -38,6 +41,7 @@ public class Ball {
         // }
         r = ballEnum.getR();
         tempCircle = ballEnum.getCircle();
+        interacts = true;
     }
 
     public void draw(GraphicsContext graphicsContext2D) { // TODO: has to change with respect to using pictures
@@ -51,7 +55,7 @@ public class Ball {
         graphicsContext2D.fillText(Integer.valueOf(num).toString(), getCenterX() - 4, getCenterY() + 4, 32);
     }
 
-    public void move(Canvas canvas, List<Ball> balls) {
+    public void move(Canvas canvas, Collection<Ball> balls) {
         x += vx;
         y += vy;
         vx *= 0.95;
@@ -77,9 +81,9 @@ public class Ball {
         }
     }
 
-    private void ballCollision(List<Ball> balls) {
+    private void ballCollision(Collection<Ball> balls) {
         for (Ball ball : balls)
-            if (!ball.equals(this)) {
+            if (!ball.equals(this) && this.interacts && ball.interacts) {
                 if (ball.intersects(this)) {
                     double dotSpeed = ((ball.vx - vx) * (ball.x - x) + (ball.vy - vy) * (ball.y - y));
                     vx += (ball.x - x) * (dotSpeed / distanceSquared(ball));
@@ -95,6 +99,15 @@ public class Ball {
                     ball.y += ball.vy;
                 }
             }
+    }
+
+    public boolean pocketed(Game game) {
+        for (Game.Pocket pocket : Game.Pocket.values())
+            if (pocket.pocketed(this)) {
+                SoundEffect.SINK.play();
+                return true;
+            }
+        return false;
     }
 
     private boolean intersects(Ball ball) {

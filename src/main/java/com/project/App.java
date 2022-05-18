@@ -51,11 +51,15 @@ public class App extends Application {
                 mouseClicked = false;
                 if (event.getButton().equals(MouseButton.PRIMARY))
                     mouseClicked = true;
+                // if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED))
+
             }
 
         };
         scene.setOnMouseMoved(mouse);
         scene.setOnMouseClicked(mouse);
+        // scene.setOnMousePressed(mouse);
+        // scene.setOnMouseReleased(mouse);
     }
 
     public static double getMouseX() {

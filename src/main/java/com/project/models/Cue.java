@@ -5,11 +5,12 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.project.App;
+import com.project.Game;
 
-public class Cue {
+public class Cue implements Moveable {
 
     private ImageView view;
     private boolean getClicks;
@@ -17,10 +18,10 @@ public class Cue {
     private double mouseX, mouseY;
     private WhiteBall myBall;
     private Slider strength;
-    private static final double CANVAS_Y = 200 + 33, CANVAS_X = 75 + 36;
+    public static final double CANVAS_Y = 175 + 33, CANVAS_X = 75 + 36;
     private static final double MAX_DISTANCE = 300;
     private double power;
-    private static final double PUSH_SPEED = 25;
+    private static final double PUSH_SPEED = 30;
 
     public Cue(ImageView cue, WhiteBall myBall, Slider strength) {
         view = cue;
@@ -28,8 +29,8 @@ public class Cue {
         this.strength = strength;
     }
 
-    public void orient() {
-        if (App.getMouseY() < 150)
+    public void orient(Game game) {
+        if (App.getMouseY() < 125)
             return;
         mouseX = App.getMouseX();
         mouseY = App.getMouseY();
@@ -48,11 +49,14 @@ public class Cue {
     }
 
     public void showPath(GraphicsContext graphicsContext2D) {
+        if (mouseX != App.getMouseX())
+            return;
         double angle = getAngle(ballY, ballX, mouseY, mouseX), spaceBetween = power * myBall.getR();
         double dx = spaceBetween * Math.sin(angle * Math.PI / 180), dy = spaceBetween * Math.cos(angle * Math.PI / 180);
         graphicsContext2D.setFill(Color.WHITE);
         for (int i = 1; i < 8; i++) {
-            graphicsContext2D.fillOval(myBall.getCenterX() - i * dx, myBall.getCenterY() - i * dy, 10 / Math.sqrt(i),
+            graphicsContext2D.fillOval(myBall.getCenterX() - 3 - i * dx, myBall.getCenterY() - 3 - i * dy,
+                    10 / Math.sqrt(i),
                     10 / Math.sqrt(i));
         }
     }
@@ -68,7 +72,7 @@ public class Cue {
         return angle;
     }
 
-    public boolean checkHit(List<Ball> balls) {
+    public boolean checkHit(Collection<Ball> balls) {
         getClicks = true;
         for (Ball ball : balls) {
             if (!ball.isSteady())

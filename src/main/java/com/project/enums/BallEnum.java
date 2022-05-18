@@ -63,32 +63,4 @@ public enum BallEnum {
         return num;
     }
 
-    public static BallEnum get(int num) {
-        switch (num) {
-            case 0:
-                return WHITE;
-            case 1:
-                return YELLOW;
-            case 2:
-                return BLUE;
-            case 3:
-                return RED;
-            case 4:
-                return PURPLE;
-            case 5:
-                return ORANGE;
-            case 6:
-                return GREEN;
-            case 7:
-                return MAROON;
-            case 8:
-                return BLACK;
-            case 9:
-                return CYAN;
-            case 10:
-                return BROWN;
-            default:
-                return WHITE;
-        }
-    }
 }

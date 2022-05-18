@@ -27,6 +27,7 @@ public class SecondaryController {
     @FXML
     Label turnLabel;
     private String name1String, name2String;
+    private Game game;
 
     @FXML
     private void switchToPrimary() throws IOException {
@@ -39,7 +40,7 @@ public class SecondaryController {
     }
 
     @FXML
-    private void restart() throws IOException {
+    public void restart() throws IOException {
         FXMLLoader loader = App.loadFXML("secondary");
         Parent root = loader.load();
         SecondaryController controller = loader.getController();
@@ -52,7 +53,7 @@ public class SecondaryController {
         name2String = name2;
         this.name1.setText(" " + name1 + this.name1.getText());
         this.name2.setText(" " + name2 + this.name2.getText());
-        Game game = new Game(this);
+        game = new Game(this);
         game.run();
     }
 
